@@ -34,3 +34,10 @@ export const getData = async url => {
     const data = await response.json();
     return data;
 };
+
+// STATES
+
+export const state = {
+    searchJobItems: [],
+    currentPage : 1
+};

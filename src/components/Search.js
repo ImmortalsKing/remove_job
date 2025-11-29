@@ -1,6 +1,7 @@
 import {
     apiUrl, jobListSearchEl, numberEl, paginationNumberNextEl,
-    searchFormEl, searchInputEl, spinnerSearchEl, getData
+    searchFormEl, searchInputEl, spinnerSearchEl, getData, state,
+    sortingBtnRelevantEl, sortingBtnRecentEl
 } from '../Common.js';
 import renderError from './Error.js'
 import renderSpinner from './Spinner.js';
@@ -27,12 +28,18 @@ const submitHandler = async event => {
 
 
     try {
+        sortingBtnRelevantEl.classList.add('sorting__button--active');
+        sortingBtnRecentEl.classList.remove('sorting__button--active');
         const data = await getData(`${apiUrl}/jobs?search=${searchText}`);
         renderSpinner('search');
         const { jobItems: jobs } = data;
 
+        // update common.js states
+
+        state.searchJobItems = jobs;
+
         numberEl.textContent = jobs.length;
-        renderJobItems(jobs);
+        renderJobItems();
     }
     catch (error) {
         console.log(error.message);

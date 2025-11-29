@@ -3,3 +3,5 @@ import './components/JobList.js';
 import './components/Error.js';
 import './components/Spinner.js';
 import './components/renderHTML.js';
+import './components/Sorting.js';
+import './components/Pagination.js';

@@ -1,8 +1,9 @@
-import {jobListSearchEl, jobDetailsContentEl} from '../Common.js'
+import { jobListSearchEl, jobDetailsContentEl, sortingBtnRelevantEl, sortingBtnRecentEl, state } from '../Common.js'
 
 // render Jobs Items
-export const renderJobItems = jobs => {
-    jobs.slice(0, 7).forEach(job => {
+export const renderJobItems = () => {
+    jobListSearchEl.innerHTML = '';
+    state.searchJobItems.slice(0, 7).forEach(job => {
         const jobItem = `
                     <li class="job-item">
                         <a class="job-item__link" href="${job.id}">
