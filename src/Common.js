@@ -1,6 +1,7 @@
 // CONSTANTS
 export const apiUrl = 'https://bytegrad.com/course-assets/js/2/api';
 export const timeoutDuration = 3000;
+export const itemPerPage = 7;
 
 // SELECTORS
 export const bookmarksBtnEl = document.querySelector('.bookmarks-btn');
@@ -39,5 +40,7 @@ export const getData = async url => {
 
 export const state = {
     searchJobItems: [],
-    currentPage : 1
+    currentPage : 1,
+    activeJobItem : {},
+    bookmarkItems : []
 };

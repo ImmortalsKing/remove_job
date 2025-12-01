@@ -5,3 +5,5 @@ import './components/Spinner.js';
 import './components/renderHTML.js';
 import './components/Sorting.js';
 import './components/Pagination.js';
+import './components/Router.js';
+import './components/Bookmark.js';

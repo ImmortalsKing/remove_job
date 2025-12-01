@@ -1,11 +1,13 @@
-import { jobListSearchEl, jobDetailsContentEl, sortingBtnRelevantEl, sortingBtnRecentEl, state } from '../Common.js'
+import { jobListSearchEl, jobDetailsContentEl,jobListBookmarksEl ,sortingBtnRelevantEl, sortingBtnRecentEl, state, itemPerPage } from '../Common.js'
 
 // render Jobs Items
-export const renderJobItems = () => {
-    jobListSearchEl.innerHTML = '';
-    state.searchJobItems.slice(0, 7).forEach(job => {
+export const renderJobItems = (whichJobList='search') => {
+    const jobListEl = whichJobList === 'search' ? jobListSearchEl:jobListBookmarksEl;
+    jobListEl.innerHTML = '';
+    let jobItems = whichJobList ==='search' ? state.searchJobItems:state.bookmarkItems;
+    jobItems.slice(state.currentPage * itemPerPage - itemPerPage, state.currentPage * itemPerPage).forEach(job => {
         const jobItem = `
-                    <li class="job-item">
+                    <li class="job-item ${state.activeJobItem.id === job.id ? 'job-item--active':''}">
                         <a class="job-item__link" href="${job.id}">
                             <div class="job-item__badge">${job.badgeLetters}</div>
                             <div class="job-item__middle">
@@ -18,13 +20,13 @@ export const renderJobItems = () => {
                                 </div>
                             </div>
                             <div class="job-item__right">
-                                <i class="fa-solid fa-bookmark job-item__bookmark-icon"></i>
+                                <i class="fa-solid fa-bookmark job-item__bookmark-icon ${state.bookmarkItems.some(item => item.id == job.id) ? 'job-item__bookmark-icon--bookmarked':''}"></i>
                                 <time class="job-item__time">${job.daysAgo}d</time>
                             </div>
                         </a>
                     </li>
                 `
-        jobListSearchEl.insertAdjacentHTML('beforeend', jobItem);
+        jobListEl.insertAdjacentHTML('beforeend', jobItem);
     });
 };
 
@@ -42,7 +44,7 @@ export const renderJobDetails = job => {
         <div class="job-info__below-badge">
             <time class="job-info__time">${job.daysAgo}d</time>
             <button class="job-info__bookmark-btn">
-                <i class="fa-solid fa-bookmark job-info__bookmark-icon"></i>
+                <i class="fa-solid fa-bookmark job-info__bookmark-icon ${state.bookmarkItems.some(item => item.id == job.id) ? 'job-info__bookmark-icon--bookmarked':''}"></i>
             </button>
         </div>
     </div>

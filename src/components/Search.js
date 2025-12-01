@@ -1,11 +1,13 @@
 import {
     apiUrl, jobListSearchEl, numberEl, paginationNumberNextEl,
     searchFormEl, searchInputEl, spinnerSearchEl, getData, state,
-    sortingBtnRelevantEl, sortingBtnRecentEl
+    sortingBtnRelevantEl, sortingBtnRecentEl, paginationNumberBackEl,
+    paginationBtnBackEl
 } from '../Common.js';
 import renderError from './Error.js'
 import renderSpinner from './Spinner.js';
 import { renderJobItems } from './renderHTML.js'
+import resetPagination from './Pagination.js'
 
 // Search Component
 
@@ -39,6 +41,9 @@ const submitHandler = async event => {
         state.searchJobItems = jobs;
 
         numberEl.textContent = jobs.length;
+
+        
+        resetPagination();
         renderJobItems();
     }
     catch (error) {
